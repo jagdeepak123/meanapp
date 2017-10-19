@@ -1,0 +1,65 @@
+<script>
+    (function() {
+        'use strict';
+
+        angular
+            .module('MyApp', ['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
+            .controller('AppCtrl', AppCtrl);
+
+        function AppCtrl($scope) {
+            $scope.data = {
+                selectedIndex: 0,
+                secondLocked: true,
+                secondLabel: "Item Two",
+                bottom: false
+            };
+            $scope.next = function() {
+                $scope.data.selectedIndex = Math.min($scope.data.selectedIndex + 1, 2);
+            };
+            $scope.previous = function() {
+                $scope.data.selectedIndex = Math.max($scope.data.selectedIndex - 1, 0);
+            };
+        }
+    })();
+
+
+    /**
+    Copyright 2016 Google Inc. All Rights Reserved. 
+    Use of this source code is governed by an MIT-style license that can be in foundin the LICENSE file at https://material.angularjs.org/license.
+    **/
+</script>
+
+<div ng-controller="AppCtrl" ng-cloak="" class="tabsdemoStaticTabs" ng-app="MyApp">
+    <md-content class="md-padding">
+        <md-tabs class="md-accent" md-selected="data.selectedIndex" md-align-tabs="{{data.bottom ? 'bottom' : 'top'}}">
+            <md-tab id="tab1">
+                <md-tab-label>Item One</md-tab-label>
+            </md-tab>
+            <md-tab id="tab2">
+                <md-tab-label>{{data.secondLabel}}</md-tab-label>
+            </md-tab>
+            <md-tab id="tab3">
+                <md-tab-label>Item Three</md-tab-label>
+            </md-tab>
+        </md-tabs>
+    </md-content>
+
+
+    <ng-switch on="data.selectedIndex" class="tabpanel-container">
+        <div role="tabpanel" id="tab1-content" aria-labelledby="tab1" ng-switch-when="0" md-swipe-left="next()" md-swipe-right="previous()">
+            View for Item #1<br/> data.selectedIndex = 0
+        </div>
+        <div role="tabpanel" id="tab2-content" aria-labelledby="tab2" ng-switch-when="1" md-swipe-left="next()" md-swipe-right="previous()">
+            View for {{data.secondLabel}}<br/> data.selectedIndex = 1
+        </div>
+        <div role="tabpanel" id="tab3-content" aria-labelledby="tab3" ng-switch-when="2" md-swipe-left="next()" md-swipe-right="previous()">
+            View for Item #3<br/> data.selectedIndex = 2
+        </div>
+    </ng-switch>
+</div>
+
+
+<!--
+  Copyright 2016 Google Inc. All Rights Reserved. 
+  Use of this source code is governed by an MIT-style license that can be in foundin the LICENSE file at https://material.angularjs.org/license.
+  -->
